@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:d2ns="http://datex2.eu/schema/2/2_0" xmlns:impl="http://dgtina.org/tp2/wsdl/tp2-internal/1.0" xmlns:intf="http://dgtina.org/tp2/wsdl/tp2-internal/1.0" xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dgtina.org/tp2/wsdl/tp2-internal/1.0">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://dgtina.org/tp2/wsdl/tp2-internal/1.0">
+   <import namespace="http://datex2.eu/schema/2/2_0" schemaLocation="../../data-model/schema/DATEXIISchema_DGT_V2.xsd"/>
+   <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
+
+   <complexType name="SaveTP2OK">
+     <sequence>
+		<element name="save" type="xsd:boolean"/>
+		<element name="idTP2" type="xsd:string"/>
+		<element name="comment" type="xsd:string"/>
+		<element name="login" type="xsd:string"/>
+		<element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   <element name="saveTP2OK" type="impl:SaveTP2OK"/>
+   <complexType name="SaveTP2OKResponse">
+     <sequence>
+      <element name="return" type="boolean"/>
+     </sequence>
+    </complexType>
+   <element name="saveTP2OKResponse" type="impl:SaveTP2OKResponse"/>
+
+   <complexType name="GetDGTDocument">
+     <sequence>
+      <element name="idTransportUnit" type="xsd:string"/>
+      <element name="countryCode" type="xsd:string"/>
+      <element maxOccurs="1" minOccurs="1" name="requestReason" type="tns2:RequestReasonEnum"/>
+     </sequence>
+    </complexType>
+   <element name="getDGTDocument" type="impl:GetDGTDocument"/>
+
+   <complexType name="GetDGTDocumentResponse">
+     <sequence>
+      <element ref="d2ns:dgCarryingVehicle"/>
+     </sequence>
+    </complexType>
+   <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
+  </schema>
+  </wsdl:types>
+
+ <wsdl:message name="errorMessageFault">
+    <wsdl:part element="tns2:ErrorMessageException" name="fault"/> 
+ </wsdl:message>
+  
+   <wsdl:message name="saveTP2OKRequestMessage">
+      <wsdl:part element="impl:saveTP2OK" name="parameters"/>
+   </wsdl:message>
+
+   <wsdl:message name="saveTP2OKResponseMessage">
+      <wsdl:part element="impl:saveTP2OKResponse" name="parameters"/>
+   </wsdl:message>
+
+  <wsdl:message name="getDGTDocumentRequestMessage">
+    <wsdl:part element="impl:getDGTDocument" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDGTDocumentResponseMessage">
+    <wsdl:part element="impl:getDGTDocumentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+   
+   <wsdl:portType name="TP2InternalServices">
+      <wsdl:operation name="saveTP2OK">
+         <wsdl:input message="impl:saveTP2OKRequestMessage"/>
+         <wsdl:output message="impl:saveTP2OKResponseMessage"/>
+		<wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
+      </wsdl:operation>
+ 
+    <wsdl:operation name="getDGTDocument">
+      <wsdl:input message="impl:getDGTDocumentRequestMessage"/>
+      <wsdl:output message="impl:getDGTDocumentResponseMessage"/>
+      </wsdl:operation>
+
+   </wsdl:portType>
+   
+   <wsdl:binding name="TP2InternalServicesSoapBinding" type="impl:TP2InternalServices">
+
+   	<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+   	<wsdl:operation name="saveTP2OK">
+   		<wsdlsoap:operation soapAction="saveTP2OK" style="document"/>
+   		<wsdl:input>
+   			<wsdlsoap:body use="literal"/>
+   		</wsdl:input>
+   		<wsdl:output>
+   			<wsdlsoap:body use="literal"/>
+   		</wsdl:output>
+      <wsdl:fault name="errorMessage">
+        <wsdlsoap:fault name="errorMessage" use="literal"/> 
+      </wsdl:fault>
+   	</wsdl:operation>
+  
+    <wsdl:operation name="getDGTDocument">
+      <wsdlsoap:operation soapAction="getDGTDocument" style="document"/>
+      <wsdl:input>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+   </wsdl:binding>
+   
+   <wsdl:service name="TP2InternalServicesService">
+      <wsdl:port binding="impl:TP2InternalServicesSoapBinding" name="TP2InternalServices">
+         <wsdlsoap:address location="http://localhost/TP2Internal/1.0"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>
