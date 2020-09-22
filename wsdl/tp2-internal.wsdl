@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:d2ns="http://datex2.eu/schema/3/d2Payload" xmlns:impl="http://dgtina.org/tp2/wsdl/tp2-internal/1.0" xmlns:intf="http://dgtina.org/tp2/wsdl/tp2-internal/1.0" xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dgtina.org/tp2/wsdl/tp2-internal/1.0">
+<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap"
+  xmlns:d2ns="http://datex2.eu/schema/3/d2Payload"
+  xmlns:dgt="http://datex2.eu/schema/3/dangerousGoodsTransport"  
+  xmlns:impl="http://dgtina.org/tp2/wsdl/tp2-internal/1.0"
+  xmlns:intf="http://dgtina.org/tp2/wsdl/tp2-internal/1.0"
+  xmlns:tns2="http://dgtina.org/exchange-model/schema/exchange-model/1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://dgtina.org/tp2/wsdl/tp2-internal/1.0">
  <wsdl:types>
   <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://dgtina.org/tp2/wsdl/tp2-internal/1.0">
    <import namespace="http://datex2.eu/schema/3/d2Payload" schemaLocation="../../data-model/schema/DATEXII_3_D2Payload.xsd"/>
+   <import namespace="http://datex2.eu/schema/3/dangerousGoodsTransport" schemaLocation="../../data-model/schema/DATEXII_3_DangerousGoodsTransport.xsd"/>
    <import namespace="http://dgtina.org/exchange-model/schema/exchange-model/1.0" schemaLocation="../../exchange-model/schema/exchange-model.xsd"/>
 
    <complexType name="SaveTP2OK">
@@ -34,7 +44,7 @@
 
    <complexType name="GetDGTDocumentResponse">
      <sequence>
-      <element ref="d2ns:payload"/>
+      <element name="dgPublication" type="dgt:DGPublication" />
      </sequence>
     </complexType>
    <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
