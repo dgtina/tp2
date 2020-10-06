@@ -25,6 +25,7 @@
      </sequence>
     </complexType>
    <element name="saveTP2OK" type="impl:SaveTP2OK"/>
+   
    <complexType name="SaveTP2OKResponse">
      <sequence>
       <element name="return" type="boolean"/>
@@ -48,6 +49,43 @@
      </sequence>
     </complexType>
    <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
+
+   <complexType name="GetDynamicInformation">
+     <sequence>
+     	<element name="idTransportUnit" type="xsd:string" />
+     	<element name="countryCode" type="string"></element>
+     	<element name="requestReason" type="tns2:RequestReasonEnum" maxOccurs="1" minOccurs="1"></element>
+     	<element name="requestingParty" type="tns2:PublicService" maxOccurs="1" minOccurs="1"></element>
+     </sequence>
+   </complexType>
+   <element name="getDynamicInformation" type="impl:GetDynamicInformation"/>
+
+   <complexType name="GetDynamicInformationResponse">
+     <sequence>
+       <element name="dgPublication" type="dgt:DGPublication" />
+     </sequence>
+   </complexType>
+   <element name="getDynamicInformationResponse" type="impl:GetDynamicInformationResponse"/>
+
+    <complexType name="GetTransportUnitByArea">
+      <sequence>
+      	<element name="x" type="xsd:float" />
+      	<element name="y" type="xsd:float" />
+      	<element name="radius" type="xsd:int" />
+      	<element maxOccurs="1" minOccurs="1" name="requestReason"
+      		type="tns2:RequestReasonEnum" />
+      	<element name="requestingParty" type="tns2:PublicService" maxOccurs="1" minOccurs="1"></element>
+      </sequence>
+    </complexType>
+    <element name="getTransportUnitByArea" type="impl:GetTransportUnitByArea"/>
+
+    <complexType name="GetTransportUnitByAreaResponse">
+      <sequence minOccurs="0" maxOccurs="unbounded" >
+        <element name="idTransportUnit" type="xsd:string"/>
+        <element name="countryCode" type="xsd:string"/>
+      </sequence>
+    </complexType>
+    <element name="getTransportUnitByAreaResponse" type="impl:GetTransportUnitByAreaResponse"/>
   </schema>
   </wsdl:types>
 
@@ -71,18 +109,46 @@
     <wsdl:part element="impl:getDGTDocumentResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
+
+  <wsdl:message name="getDynamicInformationRequest">
+    <wsdl:part element="impl:getDynamicInformation" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDynamicInformationResponseMessage">
+    <wsdl:part element="impl:getDynamicInformationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+
+  <wsdl:message name="getTransportUnitByAreaRequest">
+    <wsdl:part element="impl:getTransportUnitByArea" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransportUnitByAreaResponseMessage">
+    <wsdl:part element="impl:getTransportUnitByAreaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
    
    <wsdl:portType name="TP2InternalServices">
       <wsdl:operation name="saveTP2OK">
          <wsdl:input message="impl:saveTP2OKRequestMessage"/>
          <wsdl:output message="impl:saveTP2OKResponseMessage"/>
 		<wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
-      </wsdl:operation>
+    </wsdl:operation>
  
     <wsdl:operation name="getDGTDocument">
       <wsdl:input message="impl:getDGTDocumentRequestMessage"/>
       <wsdl:output message="impl:getDGTDocumentResponseMessage"/>
-      </wsdl:operation>
+    </wsdl:operation>
+
+    <wsdl:operation name="getDynamicInformation">
+      <wsdl:input message="impl:getDynamicInformationRequest"/>
+      <wsdl:output message="impl:getDynamicInformationResponseMessage"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="getTransportUnitByArea">
+      <wsdl:input message="impl:getTransportUnitByAreaRequest"/>
+      <wsdl:output message="impl:getTransportUnitByAreaResponseMessage"/>
+    </wsdl:operation>
 
    </wsdl:portType>
    
@@ -104,6 +170,26 @@
   
     <wsdl:operation name="getDGTDocument">
       <wsdlsoap:operation soapAction="getDGTDocument" style="document"/>
+      <wsdl:input>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="getDynamicInformation">
+      <wsdlsoap:operation soapAction="getDynamicInformation" style="document"/>
+      <wsdl:input>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="getTransportUnitByArea">
+      <wsdlsoap:operation soapAction="getTransportUnitByArea" style="document"/>
       <wsdl:input>
         <wsdlsoap:body use="literal"/>
       </wsdl:input>
