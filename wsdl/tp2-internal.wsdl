@@ -50,6 +50,22 @@
     </complexType>
    <element name="getDGTDocumentResponse" type="impl:GetDGTDocumentResponse"/>
 
+      <complexType name="GetDGTDocumentMultimodal">
+        <sequence>
+          <element minOccurs="1" maxOccurs='unbounded' name="transportUnitIdentification" type="tns2:TransportUnitIdentifier"/>
+          <element name="requestReason" type="tns2:RequestReasonEnum"/>
+          <element name="requestingParty" type="tns2:PublicService" minOccurs="1" maxOccurs="1"></element>
+        </sequence>
+      </complexType>
+      <element name="getDGTDocumentMultimodal" type="impl:GetDGTDocumentMultimodal"/>
+
+      <complexType name="GetDGTDocumentMultimodalResponse">
+        <sequence>
+	      <element name="dgPublication" type="dgt:DGPublication" />
+        </sequence>
+      </complexType>
+      <element name="getDGTDocumentMultimodalResponse" type="impl:GetDGTDocumentMultimodalResponse"/>
+
    <complexType name="GetDynamicInformation">
      <sequence>
      	<element name="idTransportUnit" type="xsd:string" />
@@ -115,6 +131,15 @@
     </wsdl:part>
   </wsdl:message>
 
+  <wsdl:message name="getDGTDocumentMultimodalRequestMessage">
+    <wsdl:part element="impl:getDGTDocumentMultimodal" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDGTDocumentMultimodalResponseMessage">
+    <wsdl:part element="impl:getDGTDocumentMultimodalResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+
   <wsdl:message name="getDynamicInformationRequest">
     <wsdl:part element="impl:getDynamicInformation" name="parameters">
     </wsdl:part>
@@ -143,6 +168,11 @@
     <wsdl:operation name="getDGTDocument">
       <wsdl:input message="impl:getDGTDocumentRequestMessage"/>
       <wsdl:output message="impl:getDGTDocumentResponseMessage"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="getDGTDocumentMultimodal">
+      <wsdl:input message="impl:getDGTDocumentMultimodalRequestMessage"/>
+      <wsdl:output message="impl:getDGTDocumentMultimodalResponseMessage"/>
     </wsdl:operation>
 
     <wsdl:operation name="getDynamicInformation">
