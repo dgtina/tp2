@@ -137,22 +137,25 @@
       <wsdl:operation name="saveTP2OK">
          <wsdl:input message="impl:saveTP2OKRequestMessage"/>
          <wsdl:output message="impl:saveTP2OKResponseMessage"/>
-		<wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
+         <wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
     </wsdl:operation>
  
     <wsdl:operation name="getDGTDocument">
       <wsdl:input message="impl:getDGTDocumentRequestMessage"/>
       <wsdl:output message="impl:getDGTDocumentResponseMessage"/>
+      <wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
     </wsdl:operation>
 
     <wsdl:operation name="getDynamicInformation">
       <wsdl:input message="impl:getDynamicInformationRequest"/>
       <wsdl:output message="impl:getDynamicInformationResponseMessage"/>
+      <wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
     </wsdl:operation>
 
     <wsdl:operation name="getTransportUnitByArea">
       <wsdl:input message="impl:getTransportUnitByAreaRequest"/>
       <wsdl:output message="impl:getTransportUnitByAreaResponseMessage"/>
+      <wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
     </wsdl:operation>
 
    </wsdl:portType>
@@ -181,6 +184,9 @@
       <wsdl:output>
         <wsdlsoap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="errorMessage">
+        <wsdlsoap:fault name="errorMessage" use="literal"/> 
+      </wsdl:fault>
     </wsdl:operation>
 
     <wsdl:operation name="getDynamicInformation">
