@@ -134,7 +134,7 @@
   </wsdl:message>
    
    <wsdl:portType name="TP2InternalServices">
-      <wsdl:operation name="saveTP2OK">
+    <wsdl:operation name="saveTP2OK">
          <wsdl:input message="impl:saveTP2OKRequestMessage"/>
          <wsdl:output message="impl:saveTP2OKResponseMessage"/>
          <wsdl:fault message="impl:errorMessageFault" name="errorMessage"/> 
@@ -197,6 +197,9 @@
       <wsdl:output>
         <wsdlsoap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="errorMessage">
+        <wsdlsoap:fault name="errorMessage" use="literal"/> 
+      </wsdl:fault>
     </wsdl:operation>
 
     <wsdl:operation name="getTransportUnitByArea">
@@ -207,6 +210,9 @@
       <wsdl:output>
         <wsdlsoap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="errorMessage">
+        <wsdlsoap:fault name="errorMessage" use="literal"/> 
+      </wsdl:fault>
     </wsdl:operation>
 
    </wsdl:binding>
